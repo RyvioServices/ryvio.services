@@ -221,6 +221,7 @@
   <!-- Navbar -->
   <nav class="nav-blur fixed top-0 left-0 w-full z-50 border-b border-white/5" id="navbar">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+
       <div class="flex items-center gap-2">
         <a href="#top" class="flex items-center gap-2 cursor-pointer">
           <svg width="36" height="36" viewbox="0 0 100 100">
@@ -239,14 +240,28 @@
           </svg><span class="text-xl font-bold grad-text">Ryvio</span>
         </a>
       </div>
+
       <div class="hidden md:flex items-center gap-6 text-sm text-zinc-400">
-        <a href="#services" class="hover:text-white transition">الخدمات</a> <a href="#software"
-          class="hover:text-white transition">البرامج</a> <a href="#packages"
-          class="hover:text-white transition">الباقات</a> <a href="#about" class="hover:text-white transition">من
-          نحن</a>
+        <a href="#services" class="hover:text-white transition">الخدمات</a>
+        <a href="#software" class="hover:text-white transition">البرامج</a>
+        <a href="#packages" class="hover:text-white transition">الباقات</a>
+          <a href="#about" class="hover:text-white transition">من نحن</a>
         <a href="#contact" class="hover:text-white transition">تواصل معنا</a>
-      </div><a href="https://wa.me/201091784177?text=أريد%20طلب%20خدمة%20من%20رايفيو" target="_blank"
-        rel="noopener noreferrer" class="grad-btn text-white text-sm font-medium px-5 py-2 rounded-full">ابدأ الآن</a>
+      </div>
+      <!-- زر الموبايل -->
+      <button id="mobMenuBtn" class="md:hidden p-2 text-zinc-400"
+        onclick="document.getElementById('mobMenu').classList.toggle('hidden')">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+
+      <a href="https://wa.me/201091784177?text=أريد%20طلب%20خدمة%20من%20رايفيو" target="_blank"
+        class="grad-btn text-white text-sm font-medium px-3 py-2 rounded-full flex items-center gap-2">
+        <!-- أيقونة -->
+        <i data-lucide="message-circle" class="w-4 h-4"></i>
+
+        <!-- النص (يختفي في الموبايل) -->
+        <span>ابدأ الآن</span>
+      </a>
     </div>
   </nav>
 
