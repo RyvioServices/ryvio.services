@@ -1,0 +1,1177 @@
+<!doctype html>
+<html lang="ar" class="h-full" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ryvio</title>
+  <link rel="shortcut icon" href="Logo.icon" type="image/x-icon">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      scroll-behavior: smooth
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    :root {
+      --bg: #0B0B0B;
+      --card: #111113;
+      --card2: #18181b;
+      --grad1: #6366f1;
+      --grad2: #a855f7;
+      --grad3: #ec4899;
+      --grad4: #f97316
+    }
+
+    body {
+      background: var(--bg);
+      color: #e4e4e7;
+      font-family: 'Outfit', sans-serif
+    }
+
+    .grad-text {
+      background: linear-gradient(135deg, var(--grad1), var(--grad2), var(--grad3), var(--grad4));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .grad-border {
+      border: 1px solid transparent;
+      background-clip: padding-box;
+      position: relative
+    }
+
+    .grad-border::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, var(--grad1), var(--grad2), var(--grad3));
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: xor;
+      -webkit-mask-composite: xor;
+      pointer-events: none
+    }
+
+    .grad-btn {
+      background: linear-gradient(135deg, var(--grad1), var(--grad2), var(--grad3));
+      transition: all .3s;
+      box-shadow: 0 0 20px rgba(139, 92, 246, .3)
+    }
+
+    .grad-btn:hover {
+      box-shadow: 0 0 35px rgba(139, 92, 246, .5);
+      transform: translateY(-2px)
+    }
+
+    .glow-card {
+      background: var(--card);
+      border-radius: 16px;
+      transition: all .4s;
+      position: relative;
+      overflow: hidden;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-btn {
+      margin-top: auto;
+    }
+
+    .glow-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, .2), rgba(168, 85, 247, .2), rgba(236, 72, 153, .2));
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: xor;
+      -webkit-mask-composite: xor;
+      pointer-events: none;
+      opacity: .5;
+      transition: opacity .4s
+    }
+
+    .glow-card:hover::before {
+      opacity: 1
+    }
+
+    .glow-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 40px rgba(139, 92, 246, .15)
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-10px)
+      }
+    }
+
+    @keyframes gradMove {
+      0% {
+        background-position: 0% 50%
+      }
+
+      50% {
+        background-position: 100% 50%
+      }
+
+      100% {
+        background-position: 0% 50%
+      }
+    }
+
+    .hero-bg {
+      background: radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, .12), transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(236, 72, 153, .1), transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(168, 85, 247, .08), transparent 60%)
+    }
+
+    .anim-float {
+      animation: float 6s ease-in-out infinite
+    }
+
+    .nav-blur {
+      backdrop-filter: blur(16px);
+      background: rgba(11, 11, 11, .8)
+    }
+
+    .popular-badge {
+      background: linear-gradient(135deg, var(--grad2), var(--grad3));
+      font-size: .75rem;
+      padding: 4px 14px;
+      border-radius: 999px;
+      position: absolute;
+      top: 10px;
+      /* بدل -12px */
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .wa-btn {
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      box-shadow: 0 0 20px rgba(37, 211, 102, .3);
+      transition: all .3s
+    }
+
+    .wa-btn:hover {
+      box-shadow: 0 0 35px rgba(37, 211, 102, .5);
+      transform: translateY(-2px)
+    }
+
+    .section-fade {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all .7s ease-out
+    }
+
+    .section-fade.visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    .cat-btn {
+      transition: all .3s
+    }
+
+    .cat-btn.active {
+      background: linear-gradient(135deg, var(--grad1), var(--grad2));
+      color: #fff
+    }
+
+    .cat-btn:not(.active):hover {
+      background: rgba(255, 255, 255, .08)
+    }
+  </style>
+
+  <script>
+    tailwind.config = { theme: { extend: { colors: { bg: '#0B0B0B', card: '#111113', card2: '#18181b' } } } }
+  </script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+  </style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+</head>
+
+<body class="h-full overflow-auto">
+  <!-- Navbar -->
+  <nav class="nav-blur fixed top-0 left-0 w-full z-50 border-b border-white/5" id="navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <a href="#top" class="flex items-center gap-2 cursor-pointer">
+          <svg width="36" height="36" viewbox="0 0 100 100">
+            <defs>
+              <lineargradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#6366f1" />
+                <stop offset="33%" stop-color="#a855f7" />
+                <stop offset="66%" stop-color="#ec4899" />
+                <stop offset="100%" stop-color="#f97316" />
+              </lineargradient>
+            </defs>
+            <circle cx="50" cy="50" r="46" fill="none" stroke="url(#lg)" stroke-width="4" /><text x="50" y="58"
+              text-anchor="middle" fill="url(#lg)" font-family="Outfit" font-weight="800" font-size="32">
+              R
+            </text>
+          </svg><span class="text-xl font-bold grad-text">Ryvio</span>
+        </a>
+      </div>
+      <div class="hidden md:flex items-center gap-6 text-sm text-zinc-400">
+        <a href="#services" class="hover:text-white transition">الخدمات</a> <a href="#software"
+          class="hover:text-white transition">البرامج</a> <a href="#packages"
+          class="hover:text-white transition">الباقات</a> <a href="#about" class="hover:text-white transition">من
+          نحن</a>
+        <a href="#contact" class="hover:text-white transition">تواصل معنا</a>
+      </div><a href="https://wa.me/201091784177?text=أريد%20طلب%20خدمة%20من%20رايفيو" target="_blank"
+        rel="noopener noreferrer" class="grad-btn text-white text-sm font-medium px-5 py-2 rounded-full">ابدأ الآن</a>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Button --> <button id="mobMenuBtn" class="md:hidden fixed top-3 right-16 z-50 p-2 text-zinc-400"
+    onclick="document.getElementById('mobMenu').classList.toggle('hidden')"><i data-lucide="menu"
+      class="w-5 h-5"></i></button>
+  <div id="mobMenu" class="hidden fixed inset-0 z-40 nav-blur pt-20 px-6 flex flex-col gap-4 text-lg">
+    <a href="#services" class="text-zinc-300 py-2" onclick="this.parentElement.classList.add('hidden')">الخدمات</a> <a
+      href="#software" class="text-zinc-300 py-2" onclick="this.parentElement.classList.add('hidden')">البرامج</a> <a
+      href="#packages" class="text-zinc-300 py-2" onclick="this.parentElement.classList.add('hidden')">الباقات</a> <a
+      href="#about" class="text-zinc-300 py-2" onclick="this.parentElement.classList.add('hidden')">من نحن</a> <a
+      href="#contact" class="text-zinc-300 py-2" onclick="this.parentElement.classList.add('hidden')">تواصل معنا</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero-bg w-full min-h-screen flex items-center justify-center relative pt-20 pb-16" id="hero">
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute w-72 h-72 rounded-full bg-indigo-500/10 blur-3xl top-10 left-10 anim-float"></div>
+      <div class="absolute w-96 h-96 rounded-full bg-purple-500/8 blur-3xl bottom-10 right-10 anim-float"
+        style="animation-delay:-3s"></div>
+    </div>
+    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+      <div class="flex justify-center mb-8">
+        <a href="#" onclick="location.reload();" class="flex items-center gap-2 cursor-pointer">
+          <svg width="100" height="100" viewbox="0 0 100 100" class="anim-float">
+            <defs>
+              <lineargradient id="lg2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#6366f1" />
+                <stop offset="33%" stop-color="#a855f7" />
+                <stop offset="66%" stop-color="#ec4899" />
+                <stop offset="100%" stop-color="#f97316" />
+              </lineargradient>
+            </defs>
+            <circle cx="50" cy="50" r="46" fill="none" stroke="url(#lg2)" stroke-width="3" /><text x="50" y="60"
+              text-anchor="middle" fill="url(#lg2)" font-family="Outfit" font-weight="800" font-size="36">
+              R
+            </text>
+          </svg>
+        </a>
+      </div>
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-800 mb-6 leading-tight" id="heroHeadline"><span
+          class="grad-text">ابتكر • صمم • انطلق</span></h1>
+      <p class="text-lg sm:text-xl text-zinc-400 mb-10 max-w-2xl mx-auto" id="heroSub">جميع خدماتك الرقمية في مكان واحد
+      </p><a href="https://wa.me/201091784177?text=أريد%20طلب%20خدمة%20من%20ريڤيو" target="_blank"
+        rel="noopener noreferrer" class="grad-btn inline-block text-white font-semibold px-10 py-4 rounded-full text-lg"
+        id="heroCta">ابدأ الآن</a>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="w-full py-20 px-4 section-fade">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4 grad-text">حلول احترافية لكل احتياجاتك</h2>
+      <p class="text-zinc-500 text-center mb-10 max-w-xl mx-auto">من البيانات والتصميم إلى المواقع والسوشيال ميديا — كل
+        ما تحتاجه في مكان واحد</p>
+      <div class="flex flex-wrap justify-center gap-2 mb-10" id="catBtns"></div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="servicesGrid"></div>
+    </div>
+  </section>
+
+  <!-- Software -->
+  <section id="software" class="w-full py-20 px-4 section-fade">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4 grad-text">البرامج والأدوات</h2>
+      <p class="text-zinc-500 text-center mb-8 max-w-xl mx-auto">احصل الآن على أقوى البرامج الاحترافية التي تحتاجها
+        لإنجاز أعمالك بكفاءة عالية واحترافية متكاملة، واستمتع بأفضل الأسعار التنافسية في السوق مع جودة موثوقة</p>
+      <div class="flex flex-wrap justify-center gap-2 mb-10" id="softwareCats"></div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="softwareGrid"></div>
+    </div>
+  </section>
+
+  <!-- Packages -->
+  <section id="packages" class="w-full py-20 px-4 section-fade">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center mb-4 grad-text">خطط التسعير</h2>
+      <p class="text-zinc-500 text-center mb-12 max-w-xl mx-auto">احصل على خطتك المثالية وابدأ الاستفادة من خدماتنا دون
+        تأخير!</p>
+      <div class="flex flex-wrap justify-center gap-2 mb-10" id="packageCats"></div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="packagesGrid"></div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="w-full py-20 px-4 section-fade">
+    <div class="max-w-4xl mx-auto text-center">
+
+      <h2 class="text-3xl sm:text-4xl font-bold mb-8 grad-text" id="aboutTitle">
+        عن ريڤيو
+      </h2>
+
+      <p class="text-zinc-400 text-lg leading-relaxed max-w-3xl mx-auto mb-6" id="aboutText1">
+        ريڤيو هي شركة متخصصة في تقديم الحلول الرقمية الحديثة، مكرّسة لمساعدة الأفراد والشركات على الازدهار في العصر
+        الرقمي. من تحليل البيانات والكتابة الاحترافية إلى التصميم الجرافيكي المذهل وتطوير الويب الشامل، نقدم جودة عالية
+        مع لمسة شخصية.
+      </p>
+      <p class="text-zinc-400 text-lg leading-relaxed">مهمتنا هي تبسيط رحلتك الرقمية وتمكين نموك من خلال خدمات مبتكرة،
+        موثوقة، وميسورة التكلفة.</p>
+      <p class="text-zinc-400 text-lg leading-relaxed max-w-3xl mx-auto mb-6" id="aboutText2"> مع ريڤيو، أنت لا تحصل
+        فقط على خدمات رقمية، بل شريك ملتزم بنجاحك الرقمي.
+      </p>
+      <p class="text-zinc-400 text-lg leading-relaxed max-w-3xl mx-auto mb-6" id="aboutText3">
+        دعنا نساعدك في تحقيق أهدافك وبناء مستقبل رقمي مشرق… معًا. ✨
+      </p>
+
+      <div class="flex justify-center gap-8 mt-12">
+        <div class="text-center">
+          <div class="text-3xl font-bold grad-text">500+</div>
+          <div class="text-zinc-500 text-sm mt-1">مشاريع</div>
+        </div>
+
+        <div class="text-center">
+          <div class="text-3xl font-bold grad-text">300+</div>
+          <div class="text-zinc-500 text-sm mt-1">عملاء</div>
+        </div>
+
+        <div class="text-center">
+          <div class="text-3xl font-bold grad-text">99%</div>
+          <div class="text-zinc-500 text-sm mt-1">رضا العملاء</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="w-full py-20 px-4 section-fade">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-6 grad-text">تواصل معنا</h2>
+      <p class="text-zinc-500 mb-10">جاهز تبدأ؟ خلينا نعمل حاجة تكبر اسمك بجد… مش بالكلام، لكن بإنجازات تتحكي ونجاح
+        يتشاف في كل خطوة.</p><a href="https://wa.me/201091784177?text=أريد%20طلب%20خدمة%20من%20ريڤيو" target="_blank"
+        rel="noopener noreferrer"
+        class="wa-btn inline-flex items-center gap-3 text-white font-semibold px-10 py-4 rounded-full text-lg mb-10">
+        <svg width="24" height="24" viewbox="0 0 24 24" fill="currentColor">
+          <path
+            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+          <path
+            d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.604-1.467A11.96 11.96 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-2.16 0-4.16-.69-5.795-1.86l-.415-.284-2.735.87.893-2.64-.312-.454A9.72 9.72 0 012.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75z" />
+        </svg> تحدث عبر واتس آب </a>
+      <div class="flex flex-wrap justify-center gap-6 text-zinc-400 text-sm mb-8">
+        <a href="tel:+201091784177" class="flex items-center gap-2 hover:text-white transition">
+          <i data-lucide="phone" class="w-4 h-4"></i>
+          01091784177
+        </a>
+
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ryvio.services@gmail.com&su=استفسار%20عن%20الخدمات&body=مرحبًا،%20أود%20الاستفسار%20عن%20إحدى%20خدماتكم."
+          target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-white transition">
+          <i data-lucide="mail" class="w-4 h-4"></i>
+          ryvio.services@gmail.com
+        </a>
+      </div>
+      <div class="flex justify-center gap-4">
+        <a href="https://www.facebook.com/ryvio.services" target="_blank" rel="noopener noreferrer"
+          class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition"><i
+            data-lucide="facebook" class="w-5 h-5"></i></a> <a href="https://www.instagram.com/ryvio.services"
+          target="_blank" rel="noopener noreferrer"
+          class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition"><i
+            data-lucide="instagram" class="w-5 h-5"></i></a> <a href="https://www.tiktok.com/@ryvio.services"
+          target="_blank" rel="noopener noreferrer"
+          class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition">
+          <svg width="20" height="20" viewbox="0 0 24 24" fill="currentColor">
+            <path
+              d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.73a8.19 8.19 0 004.76 1.52V6.8a4.84 4.84 0 01-1-.11z" />
+          </svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="w-full border-t border-white/5 py-6 px-4 text-center text-zinc-600 text-sm">
+    © 2025 ريڤيو - جميع الحقوق محفوظة.
+  </footer>
+
+  <script>
+    // Data
+    const categories = [
+      {
+        name: "تحليل البيانات",
+        icon: "database",
+        items: [
+          { title: "إدخال البيانات", desc: "إدخال سريع ودقيق باحترافية عالية" },
+          { title: "تنظيف وتنظيم البيانات", desc: "بيانات مرتبة وجاهزة للاستخدام والتحليل" },
+          { title: "إنشاء جداول احترافية", desc: "جداول واضحة تسهّل الفهم واتخاذ القرار" },
+          { title: "تحليل البيانات والتقارير", desc: "تقارير ذكية تساعدك تفهم أرقامك بسهولة" },
+          { title: "لوحات التحكم والمعادلات", desc: "Dashboards ذكية وتحكم أسهل في بياناتك" }
+        ]
+      },
+      {
+        name: "الكتابة والبحث",
+        icon: "pen-tool",
+        items: [
+          { title: "البحث العلمي والكتابة الأكاديمية", desc: "محتوى أكاديمي منظم وجاهز للتسليم" },
+          { title: "تنسيق الأبحاث والمشاريع الجامعية", desc: "إخراج احترافي يلفت الانتباه من أول نظرة" },
+          { title: "كتابة الخطابات الرسمية والتقارير", desc: "صياغة قوية تعبّر عنك باحتراف" },
+          { title: "المراجعة النهائية والتدقيق", desc: "تدقيق شامل لضمان شغل خالٍ من الأخطاء" },
+          { title: "كتابة المقالات والمدونات", desc: "مقالات مميزة تجذب القراء وتعزز حضورك الرقمي" },
+          { title: "كتابة المحتوى الإبداعي والتسويقي", desc: "محتوى جذّاب يروّج لمنتجاتك وأفكارك بفعالية" },
+          { title: "كتابة نصوص الإعلانات", desc: "نصوص إعلانية قوية ترفع من مبيعاتك وتوسع جمهورك" },
+          { title: "كتابة نصوص البريد الإلكتروني التسويقي", desc: "رسائل بريدية تقنع عملاءك وتزيد من تفاعلك" },
+          { title: "كتابة نصوص الفيديو والسيناريوهات", desc: "نصوص جذابة تبرز محتواك وتشد انتباه المشاهدين" }
+        ]
+      },
+      {
+        name: "السيرة الذاتية والتطوير",
+        icon: "user",
+        items: [
+          { title: "كتابة وتصميم السيرة الذاتية العربية", desc: "CV احترافي يبرزك وسط المنافسين" },
+          { title: "كتابة وتصميم السيرة الذاتية الإنجليزية", desc: "قدّم على الوظائف بثقة واحتراف" },
+          { title: "كتابة خطابات التغطية ورسائل التقديم", desc: "خطابات قوية تفتح لك أبواب الفرص" },
+          { title: "اختيار أفكار المشاريع", desc: "أفكار مميزة تناسب هدفك وتخصصك" },
+          { title: "تحضير محتوى المشاريع الكامل", desc: "محتوى متكامل وجاهز للتقديم" },
+          { title: "إعداد ملفات LinkedIn احترافية", desc: "ملف شخصي يبرز مهاراتك ويجذب انتباه أصحاب العمل" }
+        ]
+      },
+      {
+        name: "التصميم والرسوميات",
+        icon: "palette",
+        items: [
+          { title: "تصميم منشورات وسائل التواصل", desc: "تصاميم جذابة تساعدك على البيع والانتشار" },
+          { title: "تصميم الشعار والهوية البصرية الكاملة", desc: "هوية قوية تميزك وتثبت في ذهن العميل" },
+          { title: "تصميم الإعلانات الرقمية", desc: "إعلانات جذابة تزيد من تفاعل العملاء" },
+          { title: "تصميم العروض التقديمية", desc: "عروض جذابة توصل فكرتك بثقة" },
+          { title: "إنشاء عروض PowerPoint", desc: "تنسيق احترافي يبرز المحتوى بشكل أفضل" },
+          { title: "تصميم أغلفة الكتب والمنتجات", desc: "أغلفة تلفت الانتباه وتعكس محتوى منتجك" },
+          { title: "تصميم الكتيبات والمنشورات", desc: "مواد تسويقية جذابة تعكس جودة خدماتك" }
+        ]
+      },
+      {
+        name: "تحرير الفيديو",
+        icon: "video",
+        items: [
+          { title: "مونتاج وتحرير الفيديو", desc: "فيديوهات جذابة ترفع المشاهدات والتفاعل" },
+          { title: "تحويل النصوص إلى فيديوهات", desc: "حوّل أفكارك المكتوبة إلى فيديوهات جذابة بسهولة" },
+          { title: "تصميم الشعارات المتحركة والانتقالات", desc: "لمسة احترافية تزيد من جاذبية الفيديوهات" },
+          { title: "تحسين جودة الفيديوهات", desc: "فيديوهات أوضح وأجمل تبرز محتواك بأفضل شكل" }
+        ]
+      },
+      {
+        name: "إدارة وسائل التواصل",
+        icon: "share-2",
+        items: [
+          { title: "إعداد وإنشاء الصفحات", desc: "تأسيس احترافي لأي نشاط أو براند" },
+          { title: "تصميم الملف الشخصي والغلاف والنبذة", desc: "واجهة جذابة تعطي انطباعًا قويًا" },
+          { title: "إعداد الردود الآلية والرسائل المحفوظة", desc: "ردود سريعة تنظّم تواصلك مع العملاء" },
+          { title: "إدارة المحتوى وجدولة المنشورات", desc: "محتوى منتظم يجذب المتابعين ويزيد التفاعل" },
+          { title: "إعداد وإدارة الحملات الإعلانية", desc: "حملات مدروسة توصل منتجاتك لجمهور أكبر" },
+          { title: "إعداد المسابقات والتحديات لزيادة التفاعل", desc: "أفكار مبتكرة ترفع مستوى التفاعل وتوسع جمهورك" },
+          { title: "تطوير استراتيجيات المحتوى", desc: "خطط محتوى ذكية تناسب جمهورك وتحقق أهدافك" },
+          { title: "التفاعل مع المتابعين وبناء المجتمع", desc: "تواصل فعّال يبني علاقة قوية مع جمهورك" }
+        ]
+      },
+      {
+        name: "تعزيز النو والتفاعل",
+        icon: "trending-up",
+        items: [
+          { title: "زيادة متابعين فيسبوك", desc: "بناء حضور أقوى وزيادة ثقة الجمهور" },
+          { title: "زيادة إعجابات منشورات فيسبوك", desc: "رفع التفاعل وتحسين قوة ظهور المنشورات" },
+          { title: "زيادة تعليقات منشورات فيسبوك", desc: "تعليقات أكثر تمنح صفحتك حيوية ومصداقية" },
+          { title: "زيادة مشاركات منشورات فيسبوك", desc: "مساعدة المحتوى على الانتشار بشكل أوسع" },
+          { title: "زيادة مشاهدة فيديوهات فيسبوك", desc: "رفع المشاهدات وتحسين وصول الفيديوهات" },
+
+          { title: "زيادة متابعين إنستغرام", desc: "توسيع جمهورك وتعزيز حضور الحساب" },
+          { title: "زيادة إعجابات منشورات إنستغرام", desc: "رفع تفاعل الصور والبوستات بشكل ملحوظ" },
+          { title: "زيادة تعليقات منشورات إنستغرام", desc: "تفاعل أكبر يعكس قوة الحساب" },
+          { title: "زيادة مشاركات منشورات إنستغرام", desc: "انتشار أفضل للمحتوى بين المستخدمين" },
+          { title: "زيادة مشاهدة فيديوهات إنستغرام", desc: "دعم انتشار الريلز وزيادة الوصول" },
+
+          { title: "زيادة متابعين تيك توك", desc: "نمو أسرع يساعد حسابك على الظهور بقوة" },
+          { title: "زيادة إعجابات منشورات تيك توك", desc: "تعزيز تفاعل الفيديوهات والمحتوى" },
+          { title: "زيادة تعليقات منشورات تيك توك", desc: "تفاعل أقوى يمنح المحتوى قيمة أكبر" },
+          { title: "زيادة مشاركات منشورات تيك توك", desc: "فرص انتشار أعلى ووصول أوسع" },
+          { title: "زيادة مشاهدة فيديوهات تيك توك", desc: "زيادة المشاهدات وتحسين فرص الانتشار" },
+          { title: "زيادة حفظ فيديوهات تيك توك", desc: "زيادة الحفظ تعزز قوة المحتوى وفرص انتشاره" }
+        ]
+      },
+      {
+        name: "تطوير الويب",
+        icon: "code",
+        items: [
+          { title: "تصميم مواقع ويب حديثة ومستجيبة", desc: "مواقع احترافية تعمل بكفاءة على كل الأجهزة" },
+          { title: "إدارة المواقع المستمرة", desc: "متابعة دورية لضمان أفضل أداء" },
+          { title: "صيانة المواقع", desc: "حل المشكلات وتحسين الأداء باستمرار" },
+          { title: "تحسين سرعة الموقع وأدائه", desc: "مواقع أسرع تعزز تجربة المستخدم وتزيد من رضا العملاء" },
+          { title: "دمج قواعد البيانات", desc: "ربط منظم وآمن لإدارة البيانات بسهولة" },
+          { title: "أمان المواقع وإعداد نظام المستخدمين", desc: "حماية قوية وتجربة استخدام احترافية" }
+        ]
+      },
+      {
+        name: "الأعمال والاستشارات",
+        icon: "briefcase",
+        items: [
+          { title: "التخطيط التنظيمي للأعمال", desc: "تنظيم واضح يساعدك تحقق أهدافك" },
+          { title: "خطط العمل والاستشارات", desc: "خطط استراتيجية لتحسين أداء الأعمال" },
+          { title: "أدوات إدارة الوقت والمهام", desc: "تحكم أسهل في الوقت والإنجاز" },
+          { title: "التقارير المالية والتحليل", desc: "تقارير دقيقة تدعم قراراتك بثقة" },
+          { title: "تتبع المهام وتحليل الأداء", desc: "متابعة ذكية ترفع كفاءة العمل" },
+          { title: "حل الأزمات واتخاذ القرارات", desc: "إدارة التحديات الصعبة واتخاذ قرارات فعالة" },
+          { title: "حلول ذكية للمشاريع", desc: "أفكار عملية توفر وقتًا ومجهودًا" },
+          { title: "تحسين الإنتاجية", desc: "نظام عمل أفضل ونتائج أقوى" }
+        ]
+      }
+    ];
+
+    const softwareCategories = [
+      { name: "الكل", val: "all" },
+      { name: "شركة أدوبي", val: "adobe" },
+      { name: "مايكروسوفت", val: "microsoft" },
+      { name: "أوتوديسك", val: "autodesk" },
+    ];
+
+    const software = [
+      { name: "Adobe Photoshop", desc: "تحرير الصور الاحترافي والتصميم", price: "199 ج.م", image: "/ryvio-site/photoshop.png", category: "adobe" },
+      { name: "Adobe InDesign", desc: "تصميم الكتب والمجلات والمنشورات", price: "179 ج.م", image: "/ryvio-site/indesign.png", category: "adobe" },
+      { name: "Adobe Illustrator", desc: "تصميم الشعارات والرسوم الفيكتور", price: "199 ج.م", image: "/ryvio-site/illustrator.png", category: "adobe" },
+      { name: "Adobe After Effects", desc: "إنشاء الموشن جرافيك والمؤثرات", price: "219 ج.م", image: "/ryvio-site/aftereffects.png", category: "adobe" },
+      { name: "Adobe Bridge", desc: "إدارة وتنظيم الملفات والصور", price: "99 ج.م", image: "/ryvio-site/bridge.png", category: "adobe" },
+      { name: "Adobe XD", desc: "تصميم واجهات وتجربة المستخدم", price: "179 ج.م", image: "/ryvio-site/xd.png", category: "adobe" },
+      { name: "Adobe Premiere Pro", desc: "تحرير الفيديو بشكل احترافي", price: "219 ج.م", image: "/ryvio-site/premiere-pro.png", category: "adobe" },
+      { name: "Adobe Media Encoder", desc: "تصدير وضغط الفيديوهات", price: "129 ج.م", image: "/ryvio-site/media-encoder.png", category: "adobe" },
+      { name: "Adobe InCopy", desc: "تحرير النصوص والتعاون مع المصممين", price: "119 ج.م", image: "/ryvio-site/incopy.png", category: "adobe" },
+      { name: "Adobe Acrobat", desc: "إنشاء وتعديل ملفات PDF", price: "179 ج.م", image: "/ryvio-site/acrobat.png", category: "adobe" },
+      { name: "Adobe Figma", desc: "تصميم الواجهات بشكل تعاوني", price: "169 ج.م", image: "/ryvio-site/figma.png", category: "adobe" },
+      { name: "Adobe Air", desc: "تشغيل تطبيقات الويب على سطح المكتب", price: "79 ج.م", image: "/ryvio-site/air.png", category: "adobe" },
+      { name: "Adobe Animate", desc: "تصميم الرسوم المتحركة والأنيميشن", price: "189 ج.م", image: "/ryvio-site/animate.png", category: "adobe" },
+      { name: "Adobe Audition", desc: "تحرير وتسجيل الصوت باحتراف", price: "169 ج.م", image: "/ryvio-site/audition.png", category: "adobe" },
+      { name: "Adobe Camera Raw", desc: "تعديل الصور الخام RAW", price: "119 ج.م", image: "/ryvio-site/camera-raw.png", category: "adobe" },
+      { name: "Adobe Captivate", desc: "إنشاء محتوى تعليمي تفاعلي", price: "189 ج.م", image: "/ryvio-site/captivate.png", category: "adobe" },
+      { name: "Adobe Character Animator", desc: "تحريك الشخصيات باستخدام الصوت", price: "179 ج.م", image: "/ryvio-site/character-animator.png", category: "adobe" },
+      { name: "Adobe Connect", desc: "منصة اجتماعات ودورات أونلاين", price: "149 ج.م", image: "/ryvio-site/connect.png", category: "adobe" },
+      { name: "Adobe Creative Cloud", desc: "إدارة وتثبيت كل برامج أدوبي", price: "129 ج.م", image: "/ryvio-site/creative-cloud.png", category: "adobe" },
+      { name: "Adobe Creative Cloud Cleaner Tool", desc: "تنظيف بقايا برامج أدوبي", price: "79 ج.م", image: "/ryvio-site/creative-cloud-cleaner-tool.png", category: "adobe" },
+      { name: "Adobe Dimension", desc: "تصميم نماذج ثلاثية الأبعاد", price: "169 ج.م", image: "/ryvio-site/dimension.png", category: "adobe" },
+      { name: "Adobe DNG Converter", desc: "تحويل الصور إلى DNG", price: "79 ج.م", image: "/ryvio-site/dng-converter.png", category: "adobe" },
+      { name: "Adobe Dreamweaver", desc: "تصميم وتطوير مواقع الويب", price: "179 ج.م", image: "/ryvio-site/dreamweaver.png", category: "adobe" },
+      { name: "Adobe Firefly", desc: "تصميم بالذكاء الاصطناعي", price: "199 ج.م", image: "/ryvio-site/firefly.png", category: "adobe" },
+      { name: "Adobe Flash Player", desc: "تشغيل محتوى فلاش", price: "69 ج.م", image: "/ryvio-site/flash-player.png", category: "adobe" },
+      { name: "Adobe Flash Player Uninstaller", desc: "إزالة فلاش من الجهاز", price: "59 ج.م", image: "/ryvio-site/flash-player-uninstaller.png", category: "adobe" },
+      { name: "Adobe Flash Professional", desc: "تصميم أنيميشن فلاش", price: "159 ج.م", image: "/ryvio-site/flash-professional.png", category: "adobe" },
+      { name: "Adobe FrameMaker", desc: "إنشاء مستندات طويلة", price: "179 ج.م", image: "/ryvio-site/frameMaker.png", category: "adobe" },
+      { name: "Adobe Fresco", desc: "الرسم الرقمي واللوحات الفنية", price: "169 ج.م", image: "/ryvio-site/fresco.png", category: "adobe" },
+      { name: "Adobe Master Collection", desc: "حزمة برامج أدوبي كاملة", price: "349 ج.م", image: "/ryvio-site/master-collection.png", category: "adobe" },
+      { name: "Adobe Muse", desc: "تصميم مواقع بدون كود", price: "129 ج.م", image: "/ryvio-site/muse.png", category: "adobe" },
+      { name: "Adobe Photoshop Elements", desc: "فوتوشوب مبسط للمبتدئين", price: "149 ج.م", image: "/ryvio-site/photoshop-elements.png", category: "adobe" },
+      { name: "Adobe Photoshop Lightroom", desc: "تحرير الصور وتنظيمها", price: "179 ج.م", image: "/ryvio-site/photoshop-lightroom.png", category: "adobe" },
+      { name: "Adobe Photoshop Lightroom Classic", desc: "تعديل الصور بشكل احترافي", price: "189 ج.م", image: "/ryvio-site/photoshop-lightroom-classic.png", category: "adobe" },
+      { name: "Adobe Prelude", desc: "تنظيم واستيراد ملفات الفيديو", price: "119 ج.م", image: "/ryvio-site/prelude.png", category: "adobe" },
+      { name: "Adobe Premiere Elements", desc: "مونتاج فيديو بسيط للمبتدئين", price: "149 ج.م", image: "/ryvio-site/premiere-elements.png", category: "adobe" },
+      { name: "Adobe Premiere Rush", desc: "مونتاج فيديو سريع للسوشيال ميديا", price: "159 ج.م", image: "/ryvio-site/premiere-rush.png", category: "adobe" },
+      { name: "Adobe Reader", desc: "قراءة ملفات PDF", price: "69 ج.م", image: "/ryvio-site/reader.png", category: "adobe" },
+      { name: "Adobe Shockwave Player", desc: "تشغيل محتوى Shockwave", price: "69 ج.م", image: "/ryvio-site/shockwave-player.png", category: "adobe" },
+      { name: "Adobe Special Collection for Windows 7", desc: "برامج متوافقة مع ويندوز 7", price: "249 ج.م", image: "/ryvio-site/master-collection.png", category: "adobe" },
+      { name: "Adobe Substance 3D Designer", desc: "تصميم خامات ثلاثية الأبعاد", price: "229 ج.م", image: "/ryvio-site/substance-3d-designer.png", category: "adobe" },
+      { name: "Adobe Substance 3D Sampler", desc: "تحويل الصور لخامات 3D", price: "199 ج.م", image: "/ryvio-site/substance-3d-sampler.png", category: "adobe" },
+
+      { name: "Windows 11 25H2 Pro", desc: "نسخة ويندوز 11 برو بأحدث إصدار وميزات متقدمة", price: "149 ج.م", image: "/ryvio-site/windows-11-25h2-pro.png", category: "microsoft" },
+      { name: "Windows 11 25H2 Ent", desc: "نسخة ويندوز 11 إنتربرايز للمؤسسات والأعمال", price: "169 ج.م", image: "/ryvio-site/windows-11-25h2-ent.png", category: "microsoft" },
+      { name: "Windows 11 En", desc: "نسخة ويندوز 11 باللغة الإنجليزية", price: "129 ج.م", image: "/ryvio-site/windows-11-en.png", category: "microsoft" },
+      { name: "Windows 11 Ar", desc: "نسخة ويندوز 11 باللغة العربية", price: "129 ج.م", image: "/ryvio-site/windows-11-ar.png", category: "microsoft" },
+      { name: "Windows 11 Fr", desc: "نسخة ويندوز 11 باللغة الفرنسية", price: "129 ج.م", image: "/ryvio-site/windows-11-fr.png", category: "microsoft" },
+      { name: "Windows 10 22H2", desc: "نسخة ويندوز 10 بأحدث تحديث مستقر", price: "139 ج.م", image: "/ryvio-site/windows-10-22h2.png", category: "microsoft" },
+      { name: "Windows 10", desc: "نظام تشغيل ويندوز 10 بكفاءة واستقرار عالي", price: "119 ج.م", image: "/ryvio-site/windows-10.png", category: "microsoft" },
+      { name: "Windows 8.1", desc: "نظام تشغيل ويندوز 8.1 بواجهة عملية وسريعة", price: "99 ج.م", image: "/ryvio-site/windows-8-1.png", category: "microsoft" },
+      { name: "Windows 7", desc: "نظام تشغيل ويندوز 7 الكلاسيكي والأكثر شهرة", price: "99 ج.م", image: "/ryvio-site/windows-7.png", category: "microsoft" },
+      { name: "Windows (7-8.1-10-11)", desc: "حزمة أنظمة ويندوز الأساسية في مكان واحد", price: "249 ج.م", image: "/ryvio-site/windows-7-8-1-10-11.png", category: "microsoft" },
+      { name: "Windows Server", desc: "نظام تشغيل خوادم لإدارة الشبكات والأنظمة", price: "199 ج.م", image: "/ryvio-site/windows-server.png", category: "microsoft" },
+      { name: "Windows Server 2025", desc: "أحدث إصدار من ويندوز سيرفر للأعمال والمؤسسات", price: "229 ج.م", image: "/ryvio-site/windows-server-2025.png", category: "microsoft" },
+      { name: "Windows Vista", desc: "نظام تشغيل ويندوز فيستا بواجهة كلاسيكية", price: "79 ج.م", image: "/ryvio-site/windows-vista.png", category: "microsoft" },
+      { name: "Windows XP", desc: "نظام تشغيل ويندوز XP الكلاسيكي والخفيف", price: "79 ج.م", image: "/ryvio-site/windows-xp.png", category: "microsoft" },
+
+      { name: "Microsoft Office 365", desc: "أوفيس سحابي متكامل للعمل والتعاون بسهولة", price: "189 ج.م", image: "/ryvio-site/microsoft-office-365.png", category: "microsoft" },
+      { name: "Microsoft Office 2024", desc: "أحدث إصدار من أوفيس لإنشاء المستندات والعروض والجداول", price: "199 ج.م", image: "/ryvio-site/microsoft-office-2024.png", category: "microsoft" },
+      { name: "Microsoft Office 2021", desc: "حزمة أوفيس متكاملة للعمل والدراسة باحتراف", price: "179 ج.م", image: "/ryvio-site/microsoft-office-2021.png", category: "microsoft" },
+      { name: "Microsoft Office 2019", desc: "إصدار أوفيس موثوق لإنجاز المهام المكتبية", price: "169 ج.م", image: "/ryvio-site/microsoft-office-2019.png", category: "microsoft" },
+      { name: "Microsoft Office 2016", desc: "حزمة أوفيس عملية ومناسبة للاستخدام اليومي", price: "149 ج.م", image: "/ryvio-site/microsoft-office-2016.png", category: "microsoft" },
+      { name: "Microsoft Office 2013", desc: "إصدار أوفيس كلاسيكي للكتابة والجداول والعروض", price: "129 ج.م", image: "/ryvio-site/microsoft-office-2013.png", category: "microsoft" },
+      { name: "Microsoft Office 2010", desc: "نسخة أوفيس مستقرة وسهلة الاستخدام", price: "119 ج.م", image: "/ryvio-site/microsoft-office-2010.png", category: "microsoft" },
+      { name: "Microsoft Office 2007", desc: "نسخة أوفيس شهيرة بواجهة مألوفة", price: "99 ج.م", image: "/ryvio-site/microsoft-office-2007.png", category: "microsoft" },
+      { name: "Microsoft Office 2003", desc: "نسخة أوفيس قديمة وخفيفة للأجهزة الضعيفة", price: "79 ج.م", image: "/ryvio-site/microsoft-office-2003.png", category: "microsoft" },
+
+      { name: "Microsoft Visio", desc: "إنشاء المخططات والرسومات التوضيحية باحتراف", price: "169 ج.م", image: "/ryvio-site/microsoft-visio.png", category: "microsoft" },
+      { name: "Microsoft Project", desc: "إدارة المشاريع والمهام والجداول الزمنية بسهولة", price: "179 ج.م", image: "/ryvio-site/microsoft-project.png", category: "microsoft" },
+      { name: "Microsoft Visual Studio", desc: "بيئة تطوير متكاملة لبرمجة التطبيقات والمشاريع", price: "199 ج.م", image: "/ryvio-site/microsoft-visual-studio.png", category: "microsoft" },
+      { name: "Microsoft .Net Framework", desc: "مكتبات تشغيل أساسية للعديد من البرامج والتطبيقات", price: "89 ج.م", image: "/ryvio-site/microsoft-net-framework.png", category: "microsoft" },
+      { name: "Media Creation Tool", desc: "أداة رسمية لإنشاء وتثبيت نسخ ويندوز بسهولة", price: "79 ج.م", image: "/ryvio-site/media-creation-tool.png", category: "microsoft" },
+      { name: "Microsoft DirectX", desc: "مكتبات تشغيل أساسية للألعاب والوسائط", price: "89 ج.م", image: "/ryvio-site/microsoft-directx.png", category: "microsoft" },
+      { name: "Microsoft Download Manager", desc: "أداة لتنزيل الملفات من مايكروسوفت بكفاءة", price: "69 ج.م", image: "/ryvio-site/microsoft-download-manager.png", category: "microsoft" },
+      { name: "Microsoft Malicious Software Removal Tool", desc: "أداة لفحص وإزالة البرمجيات الضارة من النظام", price: "79 ج.م", image: "/ryvio-site/microsoft-malicious-software-removal-tool.png", category: "microsoft" },
+      { name: "Microsoft Power", desc: "أداة أو مكون مرتبط بإدارة الطاقة أو الأداء", price: "79 ج.م", image: "/ryvio-site/microsoft-power.png", category: "microsoft" },
+      { name: "Microsoft Safety Scanner", desc: "أداة فحص أمني لاكتشاف التهديدات والبرامج الضارة", price: "89 ج.م", image: "/ryvio-site/microsoft-safety-scanner.png", category: "microsoft" },
+      { name: "Microsoft Security Essentials", desc: "برنامج حماية أساسي لأجهزة ويندوز", price: "99 ج.م", image: "/ryvio-site/microsoft-security-essentials.png", category: "microsoft" },
+      { name: "Microsoft SharePoint Server", desc: "منصة لإدارة الملفات والتعاون داخل المؤسسات", price: "199 ج.م", image: "/ryvio-site/microsoft-sharepoint-server.png", category: "microsoft" },
+      { name: "Microsoft SQL Server", desc: "نظام قوي لإدارة قواعد البيانات الاحترافية", price: "219 ج.م", image: "/ryvio-site/microsoft-sql-server.png", category: "microsoft" },
+      { name: "Microsoft Surface Diagnostic Toolkit", desc: "أداة لفحص وتشخيص أجهزة Surface", price: "89 ج.م", image: "/ryvio-site/microsoft-surface-diagnostic-toolkit.png", category: "microsoft" },
+      { name: "Microsoft System Center", desc: "إدارة الأنظمة والبنية التحتية للمؤسسات", price: "199 ج.م", image: "/ryvio-site/microsoft-system-center.png", category: "microsoft" },
+      { name: "++ Microsoft Visual C", desc: "مكتبات تشغيل مطلوبة لتشغيل كثير من البرامج", price: "89 ج.م", image: "/ryvio-site/microsoft-visual-cpp.png", category: "microsoft" },
+      { name: "MultiPack Visual CPP Installer", desc: "تثبيت حزم ++ Visual C المطلوبة بسهولة", price: "99 ج.م", image: "/ryvio-site/multipack-visual-cpp-installer.png", category: "microsoft" },
+      { name: "Microsoft Visual C++ AIO Runtime", desc: "حزمة تشغيل كاملة لمكتبات ++ Visual C", price: "99 ج.م", image: "/ryvio-site/microsoft-visual-cpp-aio-runtime.png", category: "microsoft" },
+      { name: "Microsoft Visual Studio Team Foundation Server", desc: "إدارة فرق التطوير والمشاريع البرمجية", price: "189 ج.م", image: "/ryvio-site/microsoft-visual-studio-team-foundation-server.png", category: "microsoft" },
+      { name: "Microsoft Windows and Office ISO Download Tool", desc: "أداة لتحميل نسخ ويندوز وأوفيس الرسمية", price: "79 ج.م", image: "/ryvio-site/microsoft-windows-and-office-iso-download-tool.png", category: "microsoft" },
+      { name: "Windows Defender", desc: "برنامج الحماية المدمج في أنظمة ويندوز", price: "89 ج.م", image: "/ryvio-site/windows-defender.png", category: "microsoft" },
+
+      { name: "Autodesk AutoCAD", desc: "الرسم الهندسي وتصميم المخططات بدقة عالية", price: "599 ج.م", image: "/ryvio-site/Autodesk_AutoCAD.png", category: "autodesk" },
+      { name: "Autodesk AutoCAD Electrical", desc: "تصميم الدوائر الكهربائية وتوثيقها بسهولة", price: "649 ج.م", image: "/ryvio-site/Autodesk_AutoCAD_Electrical.png", category: "autodesk" },
+      { name: "Autodesk AutoCAD MEP", desc: "تصميم الأنظمة الميكانيكية والكهربائية والصحية للمباني", price: "679 ج.م", image: "/ryvio-site/Autodesk_AutoCAD_MEP.png", category: "autodesk" },
+      { name: "Autodesk AutoCAD Map 3D", desc: "تحليل البيانات الجغرافية وتصميم الخرائط الرقمية", price: "629 ج.م", image: "/ryvio-site/Autodesk_AutoCAD_Map_3D.png", category: "autodesk" },
+      { name: "Autodesk AutoCAD Raster Design", desc: "تحويل الصور الممسوحة ضوئيًا إلى رسومات قابلة للتعديل", price: "619 ج.م", image: "/ryvio-site/Autodesk_AutoCAD_Raster_Design.png", category: "autodesk" },
+      { name: "Autodesk AutoCAD LT", desc: "نسخة خفيفة من AutoCAD للرسم ثنائي الأبعاد", price: "449 ج.م", image: "/ryvio-site/Autodesk_AutoCAD_LT.png", category: "autodesk" },
+      { name: "Autodesk AutoCAD Architecture", desc: "تصميم معماري احترافي مع أدوات متقدمة", price: "669 ج.م", image: "/ryvio-site/Autodesk_AutoCAD_Architecture.png", category: "autodesk" },
+      { name: "Autodesk AutoCAD Design Suite", desc: "مجموعة أدوات تصميم CAD متعددة الوظائف", price: "699 ج.م", image: "/ryvio-site/Autodesk_AutoCAD_Design_Suite.png", category: "autodesk" },
+      { name: "Autodesk AutoCAD P&ID", desc: "رسم وتصميم مخططات الأنابيب والأجهزة الصناعية", price: "649 ج.م", image: "/ryvio-site/Autodesk_AutoCAD_PnID.png", category: "autodesk" },
+      { name: "Autodesk Advance Steel", desc: "تصميم هياكل فولاذية متقدمة وإنشاء رسومات دقيقة", price: "729 ج.م", image: "/ryvio-site/Autodesk_Advance_Steel.png", category: "autodesk" },
+      { name: "Autodesk Alias AutoStudio", desc: "تصميم الأسطح والمنتجات الصناعية بشكل دقيق", price: "779 ج.م", image: "/ryvio-site/Autodesk_Alias_AutoStudio.png", category: "autodesk" },
+      { name: "Autodesk Alias SpeedForm", desc: "تصميم سريع للأسطح وتحويل الأفكار إلى نماذج", price: "749 ج.م", image: "/ryvio-site/Autodesk_Alias_SpeedForm.png", category: "autodesk" },
+      { name: "Autodesk ArtCAM", desc: "تصميم ونقش الأعمال الفنية والمنتجات الخشبية", price: "649 ج.م", image: "/ryvio-site/Autodesk_ArtCAM.png", category: "autodesk" },
+      { name: "Autodesk 3ds Max", desc: "تصميم رسوم ثلاثية الأبعاد وأعمال الموشن والجرافيكس", price: "799 ج.م", image: "/ryvio-site/Autodesk_3ds_Max.png", category: "autodesk" },
+      { name: "Autodesk CFD", desc: "تحليل ديناميكا الموائع والتدفق الحراري", price: "749 ج.م", image: "/ryvio-site/Autodesk_CFD.png", category: "autodesk" },
+      { name: "AutoDWG DWGSee CAD", desc: "عرض وتحرير ملفات DWG بسهولة", price: "299 ج.م", image: "/ryvio-site/AutoDWG_DWGSee_CAD.png", category: "autodesk" },
+      { name: "Autodesk DWG TrueView", desc: "عرض وطباعة ملفات DWG دون الحاجة لبرنامج AutoCAD", price: "199 ج.م", image: "/ryvio-site/Autodesk_DWG_TrueView.png", category: "autodesk" },
+      { name: "Autodesk EAGLE", desc: "تصميم دوائر كهربائية PCB بسهولة ودقة", price: "579 ج.م", image: "/ryvio-site/Autodesk_EAGLE.png", category: "autodesk" },
+      { name: "Autodesk Fabrication CADmep", desc: "تصميم وتفصيل أنظمة MEP احترافي", price: "699 ج.م", image: "/ryvio-site/Autodesk_Fabrication_CADmep.png", category: "autodesk" },
+      { name: "Autodesk Fabrication CAMduct", desc: "برمجة وتوجيه آلات تصنيع مجاري الهواء", price: "689 ج.م", image: "/ryvio-site/Autodesk_Fabrication_CAMduct.png", category: "autodesk" },
+      { name: "Autodesk Fabrication ESTmep", desc: "تقدير تكاليف مشاريع MEP وإنتاج تقارير دقيقة", price: "689 ج.م", image: "/ryvio-site/Autodesk_Fabrication_ESTmep.png", category: "autodesk" },
+      { name: "Autodesk FeatureCAM", desc: "أتمتة توليد مسارات آلات CNC للقطع المعقد", price: "679 ج.م", image: "/ryvio-site/Autodesk_FeatureCAM.png", category: "autodesk" },
+      { name: "Autodesk HSMWorks", desc: "توليد مسارات قطع دقيقة لآلات CNC", price: "679 ج.م", image: "/ryvio-site/Autodesk_HSMWorks.png", category: "autodesk" },
+      { name: "Autodesk InfraWorks", desc: "تصميم البنية التحتية المدنية والمشاريع الكبرى", price: "779 ج.م", image: "/ryvio-site/Autodesk_InfraWorks.png", category: "autodesk" },
+      { name: "Autodesk Inventor", desc: "تصميم ونمذجة القطع والآلات ثلاثية الأبعاد", price: "729 ج.م", image: "/ryvio-site/Autodesk_Inventor.png", category: "autodesk" },
+      { name: "Autodesk Inventor Nastran", desc: "تحليل العناصر المحدودة للهياكل الميكانيكية", price: "789 ج.م", image: "/ryvio-site/Autodesk_Inventor_Nastran.png", category: "autodesk" },
+      { name: "Autodesk InventorCAM", desc: "توليد مسارات آلات CNC مباشرة من النماذج", price: "749 ج.م", image: "/ryvio-site/Autodesk_InventorCAM.png", category: "autodesk" },
+      { name: "Autodesk Inventor HSM", desc: "حلول CAM متقدمة متكاملة مع Inventor", price: "699 ج.م", image: "/ryvio-site/Autodesk_Inventor_HSM.png", category: "autodesk" },
+      { name: "Autodesk Inventor Interoperability", desc: "استيراد وتصدير الملفات بين برامج CAD متعددة", price: "669 ج.م", image: "/ryvio-site/Autodesk_Inventor_Interoperability.png", category: "autodesk" },
+      { name: "Autodesk Inventor Professional", desc: "نسخة متقدمة من Inventor مع أدوات إضافية", price: "759 ج.م", image: "/ryvio-site/Autodesk_Inventor_Professional.png", category: "autodesk" },
+      { name: "Autodesk Moldflow Adviser", desc: "تحليل وتصميم قوالب الحقن البلاستيكي", price: "699 ج.م", image: "/ryvio-site/Autodesk_Moldflow_Adviser.png", category: "autodesk" },
+      { name: "Autodesk Moldflow Synergy", desc: "محاكاة متقدمة لتصنيع القطع البلاستيكية", price: "739 ج.م", image: "/ryvio-site/Autodesk_Moldflow_Synergy.png", category: "autodesk" },
+      { name: "Autodesk MotionBuilder", desc: "تحريك الشخصيات وإنشاء الرسوم المتحركة الاحترافية", price: "689 ج.م", image: "/ryvio-site/Autodesk_MotionBuilder.png", category: "autodesk" },
+      { name: "Autodesk Maya", desc: "تصميم وتحريك الشخصيات والمؤثرات ثلاثية الأبعاد", price: "789 ج.م", image: "/ryvio-site/Autodesk_Maya.png", category: "autodesk" },
+      { name: "Autodesk Nastran", desc: "محاكاة وتحليل متقدم للهياكل الهندسية", price: "769 ج.م", image: "/ryvio-site/Autodesk_Nastran.png", category: "autodesk" },
+      { name: "Autodesk Nastran In-CAD", desc: "دمج قدرات Nastran مباشرة مع بيئة CAD", price: "779 ج.م", image: "/ryvio-site/Autodesk_Nastran_InCAD.png", category: "autodesk" },
+      { name: "Autodesk Navisworks Simulate", desc: "محاكاة ومراجعة مشاريع البناء والهندسة", price: "749 ج.م", image: "/ryvio-site/Autodesk_Navisworks_Simulate.png", category: "autodesk" },
+      { name: "Autodesk Netfabb", desc: "تصميم وتحضير الطباعة ثلاثية الأبعاد", price: "699 ج.م", image: "/ryvio-site/Autodesk_Netfabb.png", category: "autodesk" },
+      { name: "Autodesk Power Inspect", desc: "فحص القياسات وضمان جودة الأجزاء الصناعية", price: "689 ج.م", image: "/ryvio-site/Autodesk_Power_Inspect.png", category: "autodesk" },
+      { name: "Autodesk Powermill", desc: "برمجة مسارات قطع CNC للأجزاء المعقدة", price: "719 ج.م", image: "/ryvio-site/Autodesk_Powermill.png", category: "autodesk" },
+      { name: "Autodesk Robot Structural Analysis", desc: "تحليل الهياكل الهندسية للمنشآت الكبيرة", price: "719 ج.م", image: "/ryvio-site/Autodesk_Robot_Structural_Analysis.png", category: "autodesk" },
+      { name: "Autodesk ReMake", desc: "تحويل الصور إلى نماذج ثلاثية الأبعاد", price: "629 ج.م", image: "/ryvio-site/Autodesk_ReMake.png", category: "autodesk" },
+      { name: "Autodesk Structural Bridge Design", desc: "تصميم جسور آمنة وفعّالة حسب المعايير الهندسية", price: "739 ج.م", image: "/ryvio-site/Autodesk_Structural_Bridge_Design.png", category: "autodesk" },
+      { name: "Autodesk Showcase", desc: "عرض التصاميم ثلاثية الأبعاد بطريقة تفاعلية", price: "659 ج.م", image: "/ryvio-site/Autodesk_Showcase.png", category: "autodesk" },
+      { name: "Autodesk Simulation CAD Doctor", desc: "تحليل وتصحيح ملفات CAD لمشاريع المحاكاة", price: "599 ج.م", image: "/ryvio-site/Autodesk_Simulation_CAD_Doctor.png", category: "autodesk" },
+      { name: "Autodesk SketchBook", desc: "رسم وتخطيط رقمي سهل وسريع", price: "249 ج.م", image: "/ryvio-site/Autodesk_SketchBook.png", category: "autodesk" },
+      { name: "Autodesk Stingray", desc: "محرك ألعاب ثلاثي الأبعاد وتصور تفاعلي", price: "549 ج.م", image: "/ryvio-site/Autodesk_Stingray.png", category: "autodesk" },
+      { name: "Autodesk Vault", desc: "إدارة ملفات المشاريع والتعاون بين فرق التصميم", price: "689 ج.م", image: "/ryvio-site/Autodesk_Vault.png", category: "autodesk" },
+      { name: "Autodesk Vehicle Tracking", desc: "محاكاة حركة المركبات وتصميم الطرق", price: "649 ج.م", image: "/ryvio-site/Autodesk_Vehicle_Tracking.png", category: "autodesk" },
+      { name: "Autodesk VRED", desc: "تصور وتصميم السيارات والمنتجات ثلاثية الأبعاد", price: "699 ج.م", image: "/ryvio-site/Autodesk_VRED.png", category: "autodesk" }
+    ];
+
+    const packageCategories = [
+      { name: "الكل", val: "all" },
+      { name: "إنتاج الفيديو", val: "video" },
+      { name: "باقات الممول", val: "ads" },
+      { name: "إدارة الصفحات", val: "management" },
+      { name: "نمو الصفحات", val: "growth" },
+      { name: "زيادة التفاعل", val: "engagement" }
+    ];
+
+    const packages = [
+
+      // 🔴 الفيديو
+      {
+        name: "باقة الفيديو الواحد",
+        price: "1300",
+        period: "/فيديو",
+        features: [
+          "فيديو اعلان واحد للمنتج",
+          "تصوير سينمائي دقيق للمنتج",
+          "كابشن محتوى يناسب الفيديو",
+          "نصائح لتحسين ظهور الفيديو على المنصات"
+        ],
+        popular: false,
+        category: "video"
+      },
+      {
+        name: "باقة الثلاث فيديوهات",
+        price: "3500",
+        period: "/3 فيديوهات",
+        features: [
+          "3 فيديوهات إعلانية للمنتج",
+          "تصوير سينمائي متنوع للمنتج من زوايا مختلفة",
+          "3 كابشنات مخصصة لكل فيديو جاهزة للنشر",
+          "مونتاج متقدم مع مؤثرات انتقالية سلسلة",
+          "متابعة الأداء وتحليل التفاعل لكل فيديو"
+        ],
+        popular: true,
+        category: "video"
+      },
+      {
+        name: "باقة الخمس فيديوهات",
+        price: "5800",
+        period: "/5 فيديوهات",
+        features: [
+          "5 فيديوهات إعلانية احترافية للمنتج",
+          "تصوير سينمائي كامل لكل تفاصيل المنتج",
+          "5 كابشنات مخصصة  مع نصائح لتحسين ظهورها",
+          "مونتاج احترافي مع مؤثرات بصرية وصوتية مناسبة",
+          "إمكانية تعديل بسيط حسب مود الفيديوهات"
+        ],
+        popular: false,
+        category: "video"
+      },
+
+      // 🔵 باقات الممول
+      {
+        name: "باقة البداية",
+        price: "1250",
+        period: "/7 أيام",
+        features: [
+          "يشمل التمويل على فيسبوك و انستجرام",
+          "وصول يبدأ من 45,000 عميل مستهدف",
+          "استهداف دقيق",
+          "متابعة دورية",
+          "مناسب لكل المجالات والمنتجات"
+        ],
+        popular: false,
+        category: "ads"
+      },
+      {
+        name: "باقة النمو",
+        price: "3500",
+        period: "/15 يوم",
+        features: [
+          "يشمل التمويل على فيسبوك و انستجرام",
+          "وصول يبدأ من 170,000 عميل مستهدف",
+          "استهداف اوسع",
+          "تحسين مستمر للاعلانات",
+          "نتائج أقوى"
+        ],
+        popular: true,
+        category: "ads"
+      },
+      {
+        name: "باقة القوة",
+        price: "7750",
+        period: "/30 يوم",
+        features: [
+          "يشمل التمويل على فيسبوك و انستجرام",
+          "وصول يبدأ من 350,000 عميل مستهدف",
+          "خطة إعلانية لمدة شهر كامل",
+          "استهداف احترافي حسب المجال",
+          "متابعة وتحسين مستمر للاعلانات",
+          "نتائج قوية وملموسة"
+        ],
+        popular: false,
+        category: "ads"
+      },
+
+      // 🟣 إدارة الصفحات
+      {
+        name: "باقة البداية",
+        price: "2000",
+        period: "/شهر",
+        features: [
+          "مناسبة للصفحات الجديدة",
+          "8 - 10 بوستات خلال الشهر",
+          "تصميم صور وبوسترات جاهزة للنشر",
+          "متابعة أساسية للأداء",
+          "تحسين ظهور البوستات"
+        ],
+        popular: false,
+        category: "management"
+      },
+      {
+        name: "باقة التفاعل",
+        price: "3500",
+        period: "/شهر",
+        features: [
+          "مناسبة للصفحات المتوسطة",
+          "15 - 20 بوست خلال الشهر",
+          "تصميم بوستات وصور + فيديوهات قصيرة",
+          "اقتراح افكار محتوى اسبوعية",
+          "تحسين الوصول والتفاعل",
+          "متابعة أساسية للأداء"
+        ],
+        popular: true,
+        category: "management"
+      },
+      {
+        name: "باقة التفاعل",
+        price: "6000",
+        period: "/شهر",
+        features: [
+          "مناسبة للبراندات الكبيرة",
+          "25 - 30 بوست خلال الشهر",
+          "تصميم احترافي للصور والفيديوهات",
+          "خطة محتوى شهرية مفصلة",
+          "متابعة الأداء يوميًا وتحسين النتائج",
+          "إدارة التفاعل على البوستات (تعليقات ورسائل)"
+        ],
+        popular: false,
+        category: "management"
+      },
+
+
+      // 🟢 النمو
+      {
+        name: "باقة الانطلاقة",
+        price: "1200",
+        period: "/صفحة",
+        features: [
+          "مناسبة للصفحات الجديدة",
+          "10,000  متابع حقيقي منهم نسبة مصري وعرب",
+          "10,000 اعجاب على بوستات من اختيارك",
+          "تحسين وصول البوستات",
+          "متابعة أساسية للأداء"
+        ],
+        popular: false,
+        category: "growth"
+      },
+      {
+        name: "باقة تعزيز التفاعل",
+        price: "2000",
+        period: "/صفحة",
+        features: [
+          "20,000  متابع حقيقي منهم نسبة مصري وعرب",
+          "20,000 اعجاب على بوستات من اختيارك",
+          "تحسين وصول البوستات والانتشار",
+          "اقتراحات محتوى لزيادة التفاعل",
+          "متابعة أساسية للأداء"
+        ],
+        popular: true,
+        category: "growth"
+      },
+      {
+        name: "باقة النمو المتكامل",
+        price: "4300",
+        period: "/صفحة",
+        features: [
+          "مناسبة للبراندات الكبيرة",
+          "50,000  متابع حقيقي منهم نسبة مصري وعرب",
+          "50,000 اعجاب على بوستات من اختيارك",
+          "تفاعل قوي على المحتوى",
+          "تحسين ظهور الصفحة بالكامل",
+          "متابعة أساسية للأداء"
+        ],
+        popular: false,
+        category: "growth"
+      },
+
+      // 🟡 التفاعل
+      {
+        name: "باقة البداية",
+        price: "200",
+        period: "/صفحة",
+        features: [
+          "مثالثة لمنتج جديد",
+          "1,500 إعجاب لبوستات من إختيارك",
+          "50 مشاركة لبوستات من إختيارك",
+          "تحسين وصول البوستات"
+        ],
+        popular: false,
+        category: "engagement"
+      },
+      {
+        name: "باقة التفاعل",
+        price: "350",
+        period: "/صفحة",
+        features: [
+          "2,000 إعجاب لبوستات من إختيارك",
+          "100 مشاركة لبوستات من إختيارك",
+          "تحسين وصول البوستات",
+          "تفاعل قوي على المحتوى"
+        ],
+        popular: true,
+        category: "engagement"
+      },
+      {
+        name: "باقة النمو",
+        price: "600",
+        period: "/صفحة",
+        features: [
+          "مثالثة للبراندات الكبيرة",
+          "5,000 إعجاب لبوستات من إختيارك",
+          "200 مشاركة لبوستات من إختيارك",
+          "تحسين وصول البوستات",
+          "تفاعل قوي على المحتوى"],
+        popular: false,
+        category: "engagement"
+      }
+
+    ];
+
+
+    let activeCat = "all";
+
+    function renderCatBtns() {
+      const c = document.getElementById('catBtns');
+      let h = `<button class="cat-btn px-4 py-2 rounded-full text-sm font-medium ${activeCat === 'all' ? 'active' : 'text-zinc-400 bg-white/5'}" onclick="setCat('all')">الكل</button>`;
+      categories.forEach(cat => { h += `<button class="cat-btn px-4 py-2 rounded-full text-sm font-medium ${activeCat === cat.name ? 'active' : 'text-zinc-400 bg-white/5'}" onclick="setCat('${cat.name}')">${cat.name}</button>` });
+      c.innerHTML = h;
+    }
+
+    function setCat(name) { activeCat = name; renderCatBtns(); renderServices() }
+
+    function renderServices() {
+      const g = document.getElementById('servicesGrid');
+      const filtered = activeCat === 'all' ? categories : categories.filter(c => c.name === activeCat);
+      let h = '';
+
+      filtered.forEach(cat => {
+        cat.items.forEach(item => {
+          h += `<div class="glow-card p-5 min-h-[190px] flex flex-col justify-between">
+<div>
+  <div class="flex items-center gap-3 mb-4">
+    <div class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center">
+      <i data-lucide="${cat.icon}" class="w-4 h-4 text-purple-400"></i>
+    </div>
+    <span class="text-xs text-zinc-500 font-medium">${cat.name}</span>
+  </div>
+
+  <h3 class="text-lg font-bold text-white leading-relaxed mb-2">${item.title}</h3>
+  <p class="text-sm text-zinc-400 leading-7 mb-4">${item.desc}</p>
+</div>
+
+<a href="https://wa.me/201091784177?text=أريد%20طلب%3A%20${encodeURIComponent(item.title)}" target="_blank" rel="noopener noreferrer" class="text-xs text-purple-400 hover:text-purple-300 transition font-medium">اطلب الآن ←</a>
+</div>`;
+        });
+      });
+
+      g.innerHTML = h;
+      lucide.createIcons();
+    }
+
+    function renderSoftware() {
+      const g = document.getElementById('softwareGrid');
+
+      const filteredSoftware = activeSoftwareCat === "all"
+        ? software
+        : software.filter(s => s.category === activeSoftwareCat);
+
+      g.innerHTML = filteredSoftware.map(s => `
+    <div class="glow-card p-6 text-center">
+      
+      <div class="mx-auto mb-5 w-36 h-36 overflow-hidden rounded-[28px]">
+        <img 
+          src="${s.image}" 
+          alt="${s.name}" 
+          class="w-full h-full object-cover transition duration-300 hover:scale-105"
+        >
+      </div>
+
+      <h3 class="text-lg font-semibold text-white mb-2">${s.name}</h3>
+      <p class="text-zinc-500 text-sm mb-4">${s.desc}</p>
+      <div class="text-2xl font-bold grad-text mb-4">${s.price}</div>
+
+      <a 
+        href="https://wa.me/201091784177?text=أريد%20طلب%3A%20${encodeURIComponent(s.name)}" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="wa-btn inline-block text-white text-sm font-medium px-6 py-2.5 rounded-full"
+      >
+        اطلب عبر واتس آب
+      </a>
+
+    </div>
+  `).join('');
+    }
+
+    let activeSoftwareCat = "all";
+
+    function renderSoftwareCats() {
+      const c = document.getElementById('softwareCats');
+
+      c.innerHTML = softwareCategories.map(cat => `
+    <button 
+      onclick="setSoftwareCat('${cat.val}')"
+      class="cat-btn px-4 py-2 rounded-full text-sm font-medium ${activeSoftwareCat === cat.val ? 'active' : 'text-zinc-400 bg-white/5'}"
+    >
+      ${cat.name}
+    </button>
+  `).join('');
+    }
+
+    function setSoftwareCat(cat) {
+      activeSoftwareCat = cat;
+      renderSoftwareCats();
+      renderSoftware();
+    }
+
+    function renderPackages() {
+      const g = document.getElementById('packagesGrid');
+
+      const filtered = activePackageCat === 'all'
+        ? packages
+        : packages.filter(p => p.category === activePackageCat);
+
+      g.innerHTML = filtered.map(p => `
+    <div class="glow-card p-8 text-center relative ${p.popular ? 'ring-1 ring-purple-500/50' : ''}">
+      
+      ${p.popular ? '<div class="popular-badge text-white font-semibold">الأكثر شهرة</div>' : ''}
+
+      <h3 class="text-xl font-bold text-white mt-2 mb-2">${p.name}</h3>
+
+      <div class="mb-6">
+        <span class="text-4xl font-800 grad-text">${p.price}</span>
+        <span class="text-zinc-500 text-sm"> ج.م ${p.period}</span>
+      </div>
+
+      <ul class="text-left space-y-3 mb-8">
+        ${p.features.map(f => `
+          <li class="flex items-center gap-2 text-sm text-zinc-400">
+            <i data-lucide="check" class="w-4 h-4 text-green-400 flex-shrink-0"></i>
+            ${f}
+          </li>
+        `).join('')}
+      </ul>
+
+      <a 
+        href="https://wa.me/201091784177?text=أريد%20طلب%20خطة%20${encodeURIComponent(p.name)}" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="${p.popular ? 'grad-btn' : 'bg-white/5 hover:bg-white/10'} card-btn inline-block text-white font-medium px-8 py-3 rounded-full transition w-full text-center"
+      >
+        ابدأ الآن
+      </a>
+
+    </div>
+  `).join('');
+
+      lucide.createIcons();
+    }
+
+    let activePackageCat = "all";
+
+    function renderPackageCats() {
+      const c = document.getElementById('packageCats');
+
+      c.innerHTML = packageCategories.map(cat => `
+    <button 
+      onclick="setPackageCat('${cat.val}')"
+      class="cat-btn px-4 py-2 rounded-full text-sm font-medium ${activePackageCat === cat.val ? 'active' : 'text-zinc-400 bg-white/5'}"
+    >
+      ${cat.name}
+    </button>
+  `).join('');
+    }
+
+    function setPackageCat(cat) {
+      activePackageCat = cat;
+      renderPackageCats();
+      renderPackages();
+    }
+
+    // Scroll animations
+    const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }) }, { threshold: 0.1 });
+    document.querySelectorAll('.section-fade').forEach(el => obs.observe(el));
+
+    // Init
+    renderCatBtns();
+    renderServices();
+    renderSoftwareCats();
+    renderSoftware();
+    renderPackageCats();
+    renderPackages();
+    lucide.createIcons();
+
+    // Element SDK
+    const defaultConfig = {
+      hero_headline: "ابتكر • صمم • انطلق",
+      hero_subheadline: "جميع خدماتك الرقمية في مكان واحد",
+      cta_text: "ابدأ الآن",
+      about_title: "عن ريڤيو",
+      about_text: "ريڤيو هي شركة متخصصة في تقديم الحلول الرقمية الحديثة، مكرسة لمساعدة الأفراد والشركات على الازدهار في العصر الرقمي. من تحليل البيانات والكتابة الاحترافية إلى التصميم الجرافيكي المذهل وتطوير الويب الشامل، نقدم جودة عالية مع لمسة شخصية. مهمتنا هي تبسيط رحلتك الرقمية وتمكين نموك من خلال الخدمات المبتكرة والموثوقة والميسورة التكلفة.",
+      background_color: "#0B0B0B",
+      card_color: "#111113",
+      text_color: "#e4e4e7",
+      primary_action: "#a855f7",
+      secondary_action: "#6366f1",
+      font_family: "Outfit",
+      font_size: 16
+    };
+
+    function applyConfig(config) {
+      const c = k => config[k] || defaultConfig[k];
+      document.getElementById('heroHeadline').innerHTML = `<span class="grad-text">${c('hero_headline')}</span>`;
+      document.getElementById('heroSub').textContent = c('hero_subheadline');
+      document.getElementById('heroCta').textContent = c('cta_text');
+      document.getElementById('aboutTitle').textContent = c('about_title');
+      document.getElementById('aboutText').textContent = c('about_text');
+      document.body.style.background = c('background_color');
+      document.body.style.color = c('text_color');
+      document.body.style.fontFamily = `${c('font_family')}, sans-serif`;
+      const base = c('font_size');
+      document.querySelectorAll('h1').forEach(el => el.style.fontSize = '');
+      document.querySelectorAll('h2').forEach(el => el.style.fontSize = `${base * 2}px`);
+      document.querySelectorAll('p').forEach(el => { if (!el.closest('.glow-card')) el.style.fontSize = `${base}px` });
+    }
+
+    window.elementSdk.init({
+      defaultConfig,
+      onConfigChange: async (config) => applyConfig(config),
+      mapToCapabilities: (config) => ({
+        recolorables: [
+          { get: () => config.background_color || defaultConfig.background_color, set: v => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }) } },
+          { get: () => config.card_color || defaultConfig.card_color, set: v => { config.card_color = v; window.elementSdk.setConfig({ card_color: v }) } },
+          { get: () => config.text_color || defaultConfig.text_color, set: v => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }) } },
+          { get: () => config.primary_action || defaultConfig.primary_action, set: v => { config.primary_action = v; window.elementSdk.setConfig({ primary_action: v }) } },
+          { get: () => config.secondary_action || defaultConfig.secondary_action, set: v => { config.secondary_action = v; window.elementSdk.setConfig({ secondary_action: v }) } }
+        ],
+        borderables: [],
+        fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: v => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }) } },
+        fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: v => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }) } }
+      }),
+      mapToEditPanelValues: (config) => new Map([
+        ["hero_headline", config.hero_headline || defaultConfig.hero_headline],
+        ["hero_subheadline", config.hero_subheadline || defaultConfig.hero_subheadline],
+        ["cta_text", config.cta_text || defaultConfig.cta_text],
+        ["about_title", config.about_title || defaultConfig.about_title],
+        ["about_text", config.about_text || defaultConfig.about_text]
+      ])
+    });
+  </script>
+
+  <script>
+    // نضيف class visible لكل section مباشرة
+    document.querySelectorAll('.section-fade').forEach(section => {
+      section.classList.add('visible');
+    });
+  </script>
+
+  <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'9e60a63d82337b11',t:'MTc3NTE0MTQ2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+</body>
+
+</html>
